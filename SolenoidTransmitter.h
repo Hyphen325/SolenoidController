@@ -28,7 +28,7 @@ __declspec(dllexport)  SolenoidTransmitter* __stdcall SolenoidTransmitter_create
 __declspec(dllexport)  void __stdcall SolenoidTransmitter_destroy(SolenoidTransmitter* transmitter);
 
 // Initialize the connection to the Arduino
-__declspec(dllexport) bool __stdcall SolenoidTransmitter_initialize(SolenoidTransmitter* transmitter, const char* portName, int baudRate);
+__declspec(dllexport) bool __stdcall SolenoidTransmitter_initialize(SolenoidTransmitter* transmitter, const char* portName);
 
 // Send a signal to set a specific solenoid (0 : Close, 1 : Open)
 // Returns true if the command was sent successfully
