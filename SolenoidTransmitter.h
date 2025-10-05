@@ -1,47 +1,37 @@
-#ifndef SOLENOID_TRANSMITTER_H
-#define SOLENOID_TRANSMITTER_H
+#ifndef SOLENOIDTRANSMITTER_H
+#define SOLENOIDTRANSMITTER_H
 
-#define SOLENOIDTRANSMITTER_API 
-
-
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <windows.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Define the SolenoidTransmitter structure
-typedef struct {
-    void* serialHandle;
-} SolenoidTransmitter;
+// Function to create a SolenoidTransmitter instance
+__declspec(dllexport) uintptr_t __stdcall SolenoidTransmitter_create();
 
+// Function to destroy a SolenoidTransmitter instance
+__declspec(dllexport) void __stdcall SolenoidTransmitter_destroy(uintptr_t transmitter);
 
+// Function to initialize a SolenoidTransmitter instance with a specified port name
+__declspec(dllexport) bool __stdcall SolenoidTransmitter_initialize(uintptr_t transmitter, const char* portName);
 
-// Constructor
-__declspec(dllexport)  SolenoidTransmitter* __stdcall SolenoidTransmitter_create();
+// Function to set the state of a solenoid
+__declspec(dllexport) bool __stdcall SolenoidTransmitter_set(uintptr_t transmitter, int solenoidId, bool setpoint);
 
-// Destructor
-__declspec(dllexport)  void __stdcall SolenoidTransmitter_destroy(SolenoidTransmitter* transmitter);
+// Function to close the SolenoidTransmitter instance
+__declspec(dllexport) void __stdcall SolenoidTransmitter_close(uintptr_t transmitter);
 
-// Initialize the connection to the Arduino
-__declspec(dllexport) bool __stdcall SolenoidTransmitter_initialize(SolenoidTransmitter* transmitter, const char* portName);
+// Function to send a command to the SolenoidTransmitter instance
+__declspec(dllexport) bool __stdcall SolenoidTransmitter_sendCommand(uintptr_t transmitter, const char* command);
 
-// Send a signal to set a specific solenoid (0 : Close, 1 : Open)
-// Returns true if the command was sent successfully
-__declspec(dllexport) bool __stdcall SolenoidTransmitter_set(SolenoidTransmitter* transmitter, int solenoidId, bool setpoint);
-
-// Close the connection to the Arduino
-__declspec(dllexport) void __stdcall SolenoidTransmitter_close(SolenoidTransmitter* transmitter);
-
-// Internal method to send a command to the Arduino
-__declspec(dllexport) bool __stdcall SolenoidTransmitter_sendCommand(SolenoidTransmitter* transmitter, const char* command);
+// Function to read data from the SolenoidTransmitter instance
+__declspec(dllexport) bool __stdcall SolenoidTransmitter_read(uintptr_t transmitter, char* buffer, size_t bufferSize);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif 
+#endif // SOLENOIDTRANSMITTER_H

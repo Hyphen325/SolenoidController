@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
-const int solenoidPins[] = {2, 3, 4, 5, 7}; // Solenoid pins???? Idk what they'll be on yet
-const int numSolenoids = 5;
+const int solenoidPins[] = {2, 3, 4, 5, 6, 7}; // Solenoid pins???? Idk what they'll be on yet
+const int numSolenoids = 6;
 
 void setup() {
   Serial.begin(9600); // Going to use 9600 baud rate, could use something else
